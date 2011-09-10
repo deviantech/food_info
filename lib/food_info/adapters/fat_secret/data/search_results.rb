@@ -19,6 +19,7 @@ module FoodInfo
               self[n] = self[n].to_i
             end
             
+            self[:page] += 1 # FatSecret indexes their pages from 0
             self[:results] = [self[:results]] unless self[:results].is_a?(Array)
             self[:results] = (self[:results] || []).collect {|result| SearchResult.new(result) }
           end
