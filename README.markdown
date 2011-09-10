@@ -49,16 +49,28 @@ Now we can search for foods.
 
 (As an aside, I get that pretty, nicely-lined-up console formatting from the remarkably awesome [AwesomePrint Gem](https://github.com/michaeldv/awesome_print)).
 
-Also, note that search supports pagination via the <tt>page</tt> and <tt>per_page</tt> (max 50) parameters:
+#### Pagination
+
+Search supports pagination via the <tt>page</tt> and <tt>per_page</tt> (max 50) parameters:
 
     FoodInfo.search('cheese', :page => 2, :per_page => 50)
 
+#### Access to search results
+
+You can access the results of the search explicitly:
+
+    FoodInfo.search('cheese').results # => ... lots of results ...
+
+But the SearchResults class includes Enumerable, so you can also just call enumerable methods on it directly:
+
+    FoodInfo.search('cheese').map(&:name) # => array of names of matching foods
+    
 
 ### Nutritional Details
 
 Once you have a specific food item in mind from the search results, you can retrieve a whole lot of additional information.
 
-    cheddar = FoodInfo.search('cheese').results.first
+    cheddar = FoodInfo.search('cheese').first
     info = FoodInfo.details( cheddar.id ) # => ... a whole lotta data ...
 
 General metadata about the cheese includes id, name, kind, and url, which are identical to what you'd get from the <tt>search</tt> method.  It also has one or more servings, however, and this is where we finally get our nutrition info.

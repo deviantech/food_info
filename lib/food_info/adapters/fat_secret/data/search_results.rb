@@ -4,6 +4,8 @@ module FoodInfo
       module Data
     
         class SearchResults < Hashie::Trash
+          include Enumerable
+          
           property :results,  :from => :food
           property :page,     :from => :page_number
           property :per_page, :from => :max_results
@@ -23,6 +25,12 @@ module FoodInfo
             self[:results] = [self[:results]] unless self[:results].is_a?(Array)
             self[:results] = (self[:results] || []).collect {|result| SearchResult.new(result) }
           end
+          
+          # Allow direct enumerable access to search results without calling search('cheese').results.each
+          def each(&block)
+            self[:results].each{|result| block.call(result)}
+          end
+          
         end
     
       end

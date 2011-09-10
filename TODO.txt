@@ -1,3 +1,2 @@
-* Better search API (search('cheese'), not search('cheese').results)
 * Add DB caching
 * It'd be great to have a connection pool, so we could process multiple requests concurrently. I've added a skeleton for it, but actually using it would require a non-blocking HTTP library in HTTParty.

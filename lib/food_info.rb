@@ -50,8 +50,8 @@ end
 __END__
 
 FoodInfo.establish_connection(:fat_secret, :key => ENV['KEY'], :secret => ENV['SECRET'])
+a=FoodInfo.search('cheese', :page => 1, :per_page => 1).results.first
 a=FoodInfo.search('cheese')
-a=FoodInfo.search('cheese', :page => 1, :per_page => 1)
 
 FoodInfo.establish_connection(:fat_secret, :key => ENV['KEY'], :secret => ENV['SECRET'])
 a=FoodInfo.details("33689")
