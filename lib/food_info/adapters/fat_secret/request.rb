@@ -2,15 +2,20 @@ require 'base64'
 require 'hmac-sha1'
 
 module FoodInfo
-  module Sources
-    module FatSecret
+  module Adapters
+    class FatSecret
 
       class Request
-        KEY = ENV['KEY']
-        SECRET = ENV['SECRET']
         HOST = 'http://platform.fatsecret.com/rest/server.api'
   
-        def initialize(method, optional_params = {})
+        # Returns the query string necessary to run the specified +method+
+        # against the FatSecret API, using the +auth+ (+key+ and +secret+)
+        # to sign it.
+        #
+        # If this class were accessed externally, I'd refactor it a bit
+        # so it didn't require auth info to be passed on every request.
+        def initialize(method, auth, optional_params = {})
+          @auth          = auth
           @request_nonce = (0...10).map{65.+(rand(25)).chr}.join
           @request_time  = Time.now.to_i.to_s
           @http_method   = optional_params.delete(:http_method) || 'GET'
@@ -29,7 +34,7 @@ module FoodInfo
         protected
 
         def request_signature(token=nil)
-          signing_key  = [SECRET, token].join('&')
+          signing_key  = [@auth[:secret], token].join('&')
     
           sha = HMAC::SHA1.digest(signing_key, signature_base_string)
           Base64.encode64(sha).strip.oauth_escape
@@ -50,7 +55,7 @@ module FoodInfo
       
         def oauth_components
           {
-            :oauth_consumer_key => KEY,
+            :oauth_consumer_key => @auth[:key],
             :oauth_signature_method => 'HMAC-SHA1',
             :oauth_timestamp => @request_time,
             :oauth_nonce => @request_nonce,
