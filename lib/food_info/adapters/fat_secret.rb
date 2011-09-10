@@ -37,7 +37,10 @@ module FoodInfo
   
       def query(method, opts = {})
         query_url = Request.new(method, {:key => @key, :secret => @secret}, opts).signed_request
-        self.class.get( query_url )
+        data = self.class.get( query_url )        
+        raise DataSourceException.new(data['error']['message']) if data['error']
+        
+        return data
       end
       
     end
