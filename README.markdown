@@ -38,7 +38,8 @@ Now we can search for foods.
     cheese.per_page         # => 20
     cheese.page             # => 1
     cheese.results          # => ... big array ...
-    cheese.results.first    # => {
+    cheese.results.first    # => 
+    # {
     #     "description" => "Per 100g - Calories: 403kcal | Fat: 33.14g | Carbs: 1.28g | Protein: 24.90g",
     #              "id" => "33689",
     #            "kind" => "Generic",
@@ -48,9 +49,9 @@ Now we can search for foods.
 
 (As an aside, I get that pretty, nicely-lined-up console formatting from the remarkably awesome [AwesomePrint Gem](https://github.com/michaeldv/awesome_print)).
 
-Note that search supports pagination via the <tt>page</tt> and <tt>per_page</tt> (max 50) parameters:
+Also, note that search supports pagination via the <tt>page</tt> and <tt>per_page</tt> (max 50) parameters:
 
-  FoodInfo.search('cheese', :page => 2, :per_page => 50)
+    FoodInfo.search('cheese', :page => 2, :per_page => 50)
 
 
 ### Nutritional Details
@@ -62,8 +63,8 @@ Once you have a specific food item in mind from the search results, you can retr
 
 General metadata about the cheese includes id, name, kind, and url, which are identical to what you'd get from the <tt>search</tt> method.  It also has one or more servings, however, and this is where we finally get our nutrition info.
 
-    serving = info.servings.first 
-    # => {
+    serving = info.servings.first # =>
+    # {
     #                     "calcium" => 95,
     #                    "calories" => 532.0,
     #                "carbohydrate" => 1.69,
@@ -93,7 +94,7 @@ General metadata about the cheese includes id, name, kind, and url, which are id
 For full details on what each of those fields contains, check [the FatSecret documentation](http://platform.fatsecret.com/api/Default.aspx?screen=rapiref&method=food.get#methodResponse).
 
 
-### Legal Note
+## Legal Note
 
 The FatSecret TOS requires you not to store, well, [pretty much anything](http://platform.fatsecret.com/api/Default.aspx?screen=rapisd) aside from food or serving IDs for more than 24 hours.  This is annoying, but I figured I'd give you a heads up.
 
