@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Kali Donovan"]
   gem.email         = ["kali@deviantech.com"]
   gem.description   = %q{Generic Ruby interface to look up nutritional information on food.  Design is modular so other adapters can be plugged in, but only data source currently implemented is FatSecret.}
-  gem.summary       = %q{Look up nutritional information for various foods}
+  gem.summary       = %q{API for researching nutritional information of various foods}
   gem.homepage      = "https://github.com/deviantech/food_info"
 
   gem.add_dependency('httparty', '>= 0.7.7')
