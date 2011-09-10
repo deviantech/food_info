@@ -100,7 +100,9 @@ The FatSecret TOS requires you not to store, well, [pretty much anything](http:/
 
 ## Note on Patches/Pull Requests
 
-Patches/Pull Requests welcome, particularly adding support for additional data sources!  As always, the process is to fork this project on Github, make your changes (preferably in a topic branch, and without changing the gem version), then send a pull request.
+Contributions are welcome, particularly adding adapters for additional data sources.
+
+As always, the process is to fork this project on Github, make your changes (preferably in a topic branch, and without changing the gem version), send a pull request, and then receive much appreciation!
 
 ## License
 
