@@ -6,12 +6,18 @@ module FoodInfo
     include HTTParty
     format :json
     
-    def self.search(q)
-      get( Request.new('foods.search', :search_expression => q).signed_request )
+    def search(q)
+      query('foods.search', :search_expression => q)
     end
     
-    def self.details(food_id)
-      get( Request.new('food.get', :food_id => food_id).signed_request )
+    def details(food_id)
+      query('food.get', :food_id => food_id)
+    end
+    
+    protected
+    
+    def query(method, opts = {})
+      self.class.get( Request.new(method, opts).signed_request )
     end
   end
   
