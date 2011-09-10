@@ -15,8 +15,16 @@ module FoodInfo
         raise AuthorizationError.new("Missing required argument :secret") unless @secret = opts[:secret]
       end
 
-      def search(q)
-        data = query('foods.search', :search_expression => q)
+      def search(q, opts = {})
+        params = {
+          :search_expression => q,
+          :page_number => opts[:page] || 1,
+          :max_results => opts[:per_page] || 20
+        }
+        params[:page_number] = [params[:page_number].to_i - 1, 0].max # FatSecret's pagination starts at 0
+        params[:max_results] = [params[:max_results].to_i, 50].min    # FatSecret's max allowed results per page
+        
+        data = query('foods.search', params)
         Data::SearchResults.new( data['foods'] )
       end
   

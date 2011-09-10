@@ -26,21 +26,21 @@ module FoodInfo
       
       true
     end
+
+    def search(q, opts = {})
+      next_adapter.search(q, opts)
+    end
     
+    def details(id)
+      next_adapter.details(id)
+    end
+
+
     # FUTURE: This connection pool code won't do much good until HTTParty is non-blocking
     def next_adapter
       raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @@pool
       @@cursor = (@@cursor + 1) % @@pool.length
       @@pool[@@cursor]
-    end
-    
-    # Searches the current data source
-    def search(q)
-      next_adapter.search(q)
-    end
-    
-    def details(id)
-      next_adapter.details(id)
     end
     
   end
@@ -51,6 +51,7 @@ __END__
 
 FoodInfo.establish_connection(:fat_secret, :key => ENV['KEY'], :secret => ENV['SECRET'])
 a=FoodInfo.search('cheese')
+a=FoodInfo.search('cheese', :page => 1, :per_page => 1)
 
 FoodInfo.establish_connection(:fat_secret, :key => ENV['KEY'], :secret => ENV['SECRET'])
 a=FoodInfo.details("33689")
