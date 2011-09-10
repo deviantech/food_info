@@ -1,6 +1,5 @@
 module FoodInfo
-  class Error < RuntimeError; end
-  class NoAdapterSpecified < Error; end
-  class InvalidAdapter < Error; end
-  class AuthorizationError < Error; end
+  class NoAdapterSpecified < StandardError; end
+  class UnsupportedAdapter < StandardError; end
+  class AuthorizationError < StandardError; end
 end

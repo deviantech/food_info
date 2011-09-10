@@ -1,10 +1,9 @@
-require "food_info/version"
-
 require 'hashie'
 
 require "food_info/utils"
 require "food_info/errors"
 require "food_info/adapters"
+require "food_info/version"
 
 
 module FoodInfo
@@ -18,20 +17,30 @@ module FoodInfo
     # Sets the adapter we'll be pulling data from.
     def establish_connection(adapter_name, opts = {})
       klass = ADAPTERS[adapter_name.to_sym]
-      raise InvalidAdapter.new("Requested adapter ('#{adapter_name}') is unknown") unless klass
-      @adapter = klass.new(opts)
+      raise UnsupportedAdapter.new("Requested adapter ('#{adapter_name}') is unknown") unless klass
+      @@pool = []
+      @@cursor = 0
+      (opts.delete(:pool) || 1).to_i.times do
+        @@pool << klass.new(opts) 
+      end
+      
+      true
     end
     
+    # FUTURE: This connection pool code won't do much good until HTTParty is non-blocking
+    def next_adapter
+      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @@pool
+      @@cursor = (@@cursor + 1) % @@pool.length
+      @@pool[@@cursor]
+    end
     
     # Searches the current data source
     def search(q)
-      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @adapter
-      @adapter.search(q)
+      next_adapter.search(q)
     end
     
     def details(id)
-      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @adapter
-      @adapter.details(id)
+      next_adapter.details(id)
     end
     
   end
