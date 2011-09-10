@@ -1,8 +1,11 @@
 require "food_info/version"
 
+require 'hashie'
+
 require "food_info/utils"
 require "food_info/errors"
-require "food_info/adapters/fat_secret"
+require "food_info/adapters"
+
 
 module FoodInfo
   
@@ -22,10 +25,12 @@ module FoodInfo
     
     # Searches the current data source
     def search(q)
+      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @adapter
       @adapter.search(q)
     end
     
     def details(id)
+      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @adapter
       @adapter.details(id)
     end
     
@@ -36,7 +41,7 @@ end
 __END__
 
 FoodInfo.establish_connection(:fat_secret, :key => ENV['KEY'], :secret => ENV['SECRET'])
-FoodInfo.search('cheese')
-FoodInfo.details(id)
+a=FoodInfo.search('cheese')
 
-FoodInfo::Adapter.new(:fat_secret, opts)::FatSecret.new()
+FoodInfo.establish_connection(:fat_secret, :key => ENV['KEY'], :secret => ENV['SECRET'])
+a=FoodInfo.details("33689")

@@ -8,7 +8,8 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Look up nutritional information for various foods}
   gem.homepage      = ""
 
-  gem.add_dependency('httparty')
+  gem.add_dependency('httparty', '>= 0.7.8')
+  gem.add_dependency('hashie', '>= 2.0')
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")

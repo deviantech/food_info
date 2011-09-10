@@ -1,5 +1,9 @@
 require 'httparty'
 require 'food_info/adapters/fat_secret/request'
+require 'food_info/adapters/fat_secret/data/search_result'
+require 'food_info/adapters/fat_secret/data/search_results'
+require 'food_info/adapters/fat_secret/data/food_item'
+require 'food_info/adapters/fat_secret/data/food_serving'
 
 module FoodInfo
   module Adapters
@@ -12,11 +16,13 @@ module FoodInfo
       end
 
       def search(q)
-        query('foods.search', :search_expression => q)
+        data = query('foods.search', :search_expression => q)
+        Data::SearchResults.new( data['foods'] )
       end
   
       def details(food_id)
-        query('food.get', :food_id => food_id)
+        data = query('food.get', :food_id => food_id)
+        Data::FoodItem.new( data['food'] )
       end
   
       protected
