@@ -31,7 +31,7 @@ Once that's done, the first step is to tell FoodInfo which adapter you want to u
 
 ### Searching
 
-Now we can search for foods.  The <tt>page</tt> and <tt>per_page</tt> parameters are optional, but used here so we can fit the output inline.
+Now we can search for foods.
 
     cheese = FoodInfo.search('cheese')
     cheese.total_results    # => 2469
@@ -46,7 +46,12 @@ Now we can search for foods.  The <tt>page</tt> and <tt>per_page</tt> parameters
     #             "url" => "http://www.fatsecret.com/calories-nutrition/usda/cheddar-cheese"
     # }
 
-(As an aside, I get that pretty, nicely-lined-up console formatting from the remarkably awesome [AwesomePrint Gem](https://github.com/michaeldv/awesome_print))
+(As an aside, I get that pretty, nicely-lined-up console formatting from the remarkably awesome [AwesomePrint Gem](https://github.com/michaeldv/awesome_print)).
+
+Note that search supports pagination via the <tt>page</tt> and <tt>per_page</tt> (max 50) parameters:
+
+  FoodInfo.search('cheese', :page => 2, :per_page => 50)
+
 
 ### Nutritional Details
 
@@ -55,9 +60,10 @@ Once you have a specific food item in mind from the search results, you can retr
     cheddar = FoodInfo.search('cheese').results.first
     info = FoodInfo.details( cheddar.id ) # => ... a whole lotta data ...
 
-General metadata about the cheese includes +id+, +name+, +kind+, and +url+, which are identical to what you'd get from the +search+ method.  It also has one or more servings, however, and this is where we finally get our nutrition info.
+General metadata about the cheese includes id, name, kind, and url, which are identical to what you'd get from the <tt>search</tt> method.  It also has one or more servings, however, and this is where we finally get our nutrition info.
 
-    serving = info.servings.first # => {
+    serving = info.servings.first 
+    # => {
     #                     "calcium" => 95,
     #                    "calories" => 532.0,
     #                "carbohydrate" => 1.69,
