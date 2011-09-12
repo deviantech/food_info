@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.3 September 12, 2011
+* Added missing gem dependency on ruby-hmac
+
 ## 0.0.2 September 11, 2011
 * Added propagation of errors from data source
 * API improvement: No need to call <tt>results</tt> on FoodItem.search to access search results
