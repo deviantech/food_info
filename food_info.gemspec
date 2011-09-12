@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('httparty', '>= 0.7.7')
   gem.add_dependency('hashie', '>= 1.1.0')
+  gem.add_dependency('ruby-hmac')
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
