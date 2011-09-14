@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.4 UNRELEASED
+* API improvement: Can index directly into search results (e.g. FoodInfo.search('a')[3])
+
 ## 0.0.3 September 12, 2011
 * Added missing gem dependency on ruby-hmac
 

@@ -31,6 +31,12 @@ module FoodInfo
             self[:results].each{|result| block.call(result)}
           end
           
+          # Allows pulling out a specific index without having to call results -- search('cheese')[3], not search('cheese').results[3]
+          def [](idx)
+            super(idx) if idx.is_a?(Symbol) || idx.to_i.zero?
+            self[:results][idx]
+          end          
+          
         end
     
       end
