@@ -38,7 +38,7 @@ module FoodInfo
 
     # FUTURE: This connection pool code won't do much good until HTTParty is non-blocking
     def next_adapter
-      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless @@pool
+      raise NoAdapterSpecified.new("You must run FoodInfo.establish_connection first") unless defined?(@@pool)
       @@cursor = (@@cursor + 1) % @@pool.length
       @@pool[@@cursor]
     end
