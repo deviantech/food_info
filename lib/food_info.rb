@@ -28,13 +28,20 @@ module FoodInfo
     end
 
     def search(q, opts = {})
-      next_adapter.search(q, opts)
+      cached(:search, q, opts) { next_adapter.search(q, opts) }
     end
     
     def details(id)
-      next_adapter.details(id)
+      cached(:details, id) { next_adapter.details(id) }
     end
 
+
+
+
+    def cached(method, param, opts = {}, &block)
+      # TODO - implement caching strategy
+      block.call
+    end
 
     # FUTURE: This connection pool code won't do much good until HTTParty is non-blocking
     def next_adapter

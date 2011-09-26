@@ -1,9 +1,10 @@
 require 'httparty'
-require 'food_info/adapters/fat_secret/request'
-require 'food_info/adapters/fat_secret/data/search_result'
-require 'food_info/adapters/fat_secret/data/search_results'
-require 'food_info/adapters/fat_secret/data/food_item'
-require 'food_info/adapters/fat_secret/data/food_serving'
+
+require 'fat_secret/request'
+require 'fat_secret/data/search_result'
+require 'fat_secret/data/search_results'
+require 'fat_secret/data/food_item'
+require 'fat_secret/data/food_serving'
 
 module FoodInfo
   module Adapters

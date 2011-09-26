@@ -1,4 +1,4 @@
-require "food_info/adapters/fat_secret"
+require "adapters/fat_secret"
 
 module FoodInfo
   # All FoodInfo adapters must expose two public methods, +search+ and +details+, and will need to
