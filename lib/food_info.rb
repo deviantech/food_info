@@ -28,11 +28,11 @@ module FoodInfo
     end
 
     def search(q, opts = {})
-      cached(:search, q, opts) { next_adapter.search(q, opts) }
+      cached(:search, q, opts)
     end
     
-    def details(id)
-      cached(:details, id) { next_adapter.details(id) }
+    def details(id, opts = {})
+      cached(:details, id)
     end
 
 
@@ -40,7 +40,7 @@ module FoodInfo
 
     def cached(method, param, opts = {}, &block)
       # TODO - implement caching strategy
-      block.call
+      next_adapter.send(method, param, opts)
     end
 
     # FUTURE: This connection pool code won't do much good until HTTParty is non-blocking

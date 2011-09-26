@@ -24,12 +24,12 @@ module FoodInfo
         }
         params[:page_number] = [params[:page_number].to_i - 1, 0].max # FatSecret's pagination starts at 0
         params[:max_results] = [params[:max_results].to_i, 50].min    # FatSecret's max allowed results per page
-        
+                
         data = query('foods.search', params)
         Data::SearchResults.new( data['foods'] )
       end
   
-      def details(food_id)
+      def details(food_id, opts = {})
         data = query('food.get', :food_id => food_id)
         Data::FoodItem.new( data['food'] )
       end

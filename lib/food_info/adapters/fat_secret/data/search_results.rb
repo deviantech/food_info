@@ -12,14 +12,14 @@ module FoodInfo
           property :total_results
       
           def initialize(*args)
-            super(*args)
+            super(*args)            
             normalize_data
           end
           
-          def normalize_data
+          def normalize_data            
             [:page, :per_page, :total_results].each do |n|
               self[n] = self[n].to_i
-            end
+            end            
             
             self[:page] += 1 # FatSecret indexes their pages from 0
             self[:results] = [self[:results]] unless self[:results].is_a?(Array)
@@ -33,7 +33,7 @@ module FoodInfo
           
           # Allows pulling out a specific index without having to call results -- search('cheese')[3], not search('cheese').results[3]
           def [](idx)
-            super(idx) if idx.is_a?(Symbol) || idx.to_i.zero?
+            return super(idx) if idx.is_a?(Symbol) || idx.to_i.zero?
             self[:results][idx]
           end          
           
