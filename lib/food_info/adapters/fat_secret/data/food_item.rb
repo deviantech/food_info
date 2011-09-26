@@ -13,7 +13,11 @@ module FoodInfo
 
           def initialize(*args)
             super(*args)
-            self[:servings] = self[:servings]['serving'].collect{|s| FoodServing.new(s) }
+
+            # Can't use Array(), as that turns internals of the hash into array pairs as well
+            serving_info = self[:servings]['serving']
+            serving_info = [serving_info] if serving_info.is_a?(Hash)
+            self[:servings] = serving_info.collect{|s| FoodServing.new(s) }
           end
         end
       
