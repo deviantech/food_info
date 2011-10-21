@@ -10,6 +10,7 @@ module FoodInfo
   module Adapters
     class FatSecret
       include HTTParty
+      RETRY_INVALID_TIMESTAMP = 1 # Only retry once to avoid huge pileup if concurrent
       
       def initialize(opts = {})
         raise AuthorizationError.new("Missing required argument :key")    unless @key    = opts[:key]
@@ -36,11 +37,18 @@ module FoodInfo
   
       protected
   
-      def query(method, opts = {})
+      def query(method, opts = {}, retried = 0)
         query_url = Request.new(method, {:key => @key, :secret => @secret}, opts).signed_request
-        data = self.class.get( query_url )        
-        raise DataSourceException.new(data['error']['message']) if data['error']
+        data = self.class.get( query_url )
         
+        if data['error']  # Invalid timestamp can happen if more than one request/second. Allow retrying once.
+          if data['error']['message'] =~ 'Invalid/expired timestamp' && retried < RETRY_INVALID_TIMESTAMP
+            return query(method, opts, retried + 1)
+          else
+            raise DataSourceException.new(data['error']['message'])
+          end
+        end
+      
         return data
       end
       

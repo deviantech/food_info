@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.6 October 21, 2011
+* FatSecret: Retry once if timestamp invalid (API only supports single request/second)
+
 ## 0.0.5 September 26, 2011
 * Bugfix: missing 'return' was wreaking havoc with FoodInfo.search
 
