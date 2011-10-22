@@ -1,2 +1,6 @@
 * Add DB caching (or is that better left to the client, who can control the caching layer completely?)
 * It'd be great to have a connection pool, so we could process multiple requests concurrently. I've added a skeleton for it, but actually using it would require a non-blocking HTTP library in HTTParty.
+
+FatSecret ratelimits requests to one/second.
+  - Could add queue and only process one per second (then separate event loop running while pool full, can't necessarily handle additional requests in meantime)
+  - Could roundrobin between multiple API keys, but presumably violates TOS

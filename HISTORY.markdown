@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.7 Unreleased
+* Adding caching: can pass in memcache-compatible object to use caching
+
 ## 0.0.6 October 21, 2011
 * FatSecret: Retry once if timestamp invalid (API only supports single request/second)
 

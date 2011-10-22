@@ -29,6 +29,16 @@ Once that's done, the first step is to tell FoodInfo which adapter you want to u
     FoodInfo.establish_connection(:fat_secret, :key => 'YOUR-KEY', :secret => 'YOUR-KEY')
 
 
+### Caching
+
+To cache results, FoodInfo supports passing in an instance of a memcache-API-compatible (i.e. responds to <code>get</code> and <code>set</code>) caching object.  I recommend using the [Dalli gem](https://github.com/mperham/dalli).
+
+    require 'dalli'
+    client = Dalli::Client.new('localhost:11211')
+    FoodInfo.establish_connection(:fat_secret, :key => 'YOUR-KEY', :secret => 'YOUR-KEY', :cache => client)
+
+With that in place repeated <code>search</code> or <code>detail</code> requests will pull from the cache, and not the API endpoint.
+
 ### Searching
 
 Now we can search for foods.
