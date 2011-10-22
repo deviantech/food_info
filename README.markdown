@@ -37,7 +37,7 @@ To cache results, FoodInfo supports passing in an instance of a memcache-API-com
     client = Dalli::Client.new('localhost:11211')
     FoodInfo.establish_connection(:fat_secret, :key => 'YOUR-KEY', :secret => 'YOUR-KEY', :cache => client)
 
-With that in place repeated <code>search</code> or <code>detail</code> requests will pull from the cache, and not the API endpoint.
+With that in place repeated <code>search</code> or <code>details</code> requests will pull from the cache, and not the API endpoint.
 
 ### Searching
 
