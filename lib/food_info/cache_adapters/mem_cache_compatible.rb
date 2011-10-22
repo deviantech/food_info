@@ -16,6 +16,7 @@ module FoodInfo
         rescue Exception => e
           STDERR.puts e
         end
+        
         val
       end
 
@@ -24,9 +25,8 @@ module FoodInfo
           @cache.get(key)
         rescue Exception => e
           STDERR.puts e
+          return nil
         end
-        
-        nil
       end
       
     end
