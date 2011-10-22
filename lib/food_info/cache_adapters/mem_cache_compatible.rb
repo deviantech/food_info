@@ -20,7 +20,13 @@ module FoodInfo
       end
 
       def get(key)
-        @cache.get(key)
+        begin
+          @cache.get(key)
+        rescue Exception => e
+          STDERR.puts e
+        end
+        
+        nil
       end
       
     end
