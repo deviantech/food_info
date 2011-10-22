@@ -14,7 +14,7 @@ module FoodInfo
         begin
           @cache.set(key, val)
         rescue Exception => e
-          STDERR.puts e
+          STDERR.puts "FoodInfo Cache Error (set): #{e}"
         end
         
         val
@@ -24,7 +24,7 @@ module FoodInfo
         begin
           @cache.get(key)
         rescue Exception => e
-          STDERR.puts e
+          STDERR.puts "FoodInfo Cache Error (get): #{e}"
           return nil
         end
       end
