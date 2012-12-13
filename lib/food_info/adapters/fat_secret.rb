@@ -42,7 +42,7 @@ module FoodInfo
         data = self.class.get( query_url )
         
         if data['error']  # Invalid timestamp can happen if more than one request/second. Allow retrying once.
-          if data['error']['message'] =~ 'Invalid/expired timestamp' && retried < RETRY_INVALID_TIMESTAMP
+          if data['error']['message'] =~ /Invalid\/expired timestamp/ && retried < RETRY_INVALID_TIMESTAMP
             return query(method, opts, retried + 1)
           else
             raise DataSourceException.new(data['error']['message'])
