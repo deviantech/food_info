@@ -19,7 +19,7 @@ module FoodInfo
 
       def search(q, opts = {})
         params = {
-          :search_expression => q,
+          :search_expression => URI.escape(q),
           :page_number => opts[:page] || 1,
           :max_results => opts[:per_page] || 20
         }
