@@ -1,6 +1,7 @@
 # Changelog
 
-## 0.0.7 Unreleased
+## 0.0.7 December 5, 2013
+* Pulling in misc bugfixes from eclipxe
 * Adding caching: can pass in memcache-compatible object to use caching
 
 ## 0.0.6 October 21, 2011
